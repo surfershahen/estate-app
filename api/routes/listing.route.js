@@ -15,3 +15,4 @@ router.delete("/delete/:id", verifyToken, deleteListing);
 router.get("/get/:id", getListing);
 
 export default router;
+ 
