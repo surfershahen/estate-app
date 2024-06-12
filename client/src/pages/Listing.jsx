@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
-
 import { Swiper, SwiperSlide } from "swiper/react";
-import SwipeCore from "swiper";
+import SwiperCore from "swiper";
+import { useSelector } from "react-redux";
 import { Navigation } from "swiper/modules";
 import "swiper/css/bundle";
 import {
@@ -15,19 +14,17 @@ import {
   FaParking,
   FaShare,
 } from "react-icons/fa";
-
 import Contact from "../components/Contact";
+
 export default function Listing() {
-  const { currentUser } = useSelector(state => state.user);
-
-  SwipeCore.use([Navigation]);
-  const params = useParams();
-
+  SwiperCore.use([Navigation]);
   const [listing, setListing] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [copied, setCopied] = useState(false);
-  const [contact, setContact] = useState(true);
+  const [contact, setContact] = useState(false);
+  const params = useParams();
+  const { currentUser } = useSelector(state => state.user);
 
   useEffect(() => {
     const fetchListing = async () => {
@@ -44,11 +41,10 @@ export default function Listing() {
         setLoading(false);
         setError(false);
       } catch (error) {
-        setError(error);
+        setError(true);
         setLoading(false);
       }
     };
-
     fetchListing();
   }, [params.listingId]);
 
@@ -64,7 +60,7 @@ export default function Listing() {
             {listing.imageUrls.map(url => (
               <SwiperSlide key={url}>
                 <div
-                  className="h-[550px] "
+                  className="h-[550px]"
                   style={{
                     background: `url(${url}) center no-repeat`,
                     backgroundSize: "cover",
@@ -102,7 +98,7 @@ export default function Listing() {
               <FaMapMarkerAlt className="text-green-700" />
               {listing.address}
             </p>
-            <div className=" flex gap-4">
+            <div className="flex gap-4">
               <p className="bg-red-900 w-full max-w-[200px] text-white text-center p-1 rounded-md">
                 {listing.type === "rent" ? "For Rent" : "For Sale"}
               </p>
@@ -113,11 +109,11 @@ export default function Listing() {
               )}
             </div>
             <p className="text-slate-800">
-              <span className="font-semibold text-black"> Description -</span>
+              <span className="font-semibold text-black">Description - </span>
               {listing.description}
             </p>
             <ul className="text-green-900 font-semibold text-sm flex flex-wrap items-center gap-4 sm:gap-6">
-              <li className="flex items-center gap-1 whitespace-nowrap">
+              <li className="flex items-center gap-1 whitespace-nowrap ">
                 <FaBed className="text-lg" />
                 {listing.bedrooms > 1
                   ? `${listing.bedrooms} beds `

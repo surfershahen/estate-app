@@ -18,9 +18,6 @@ import {
   signOutUserSuccess,
   signInFailure,
   signOutUserFailure,
-  listingUserStart,
-  listingUserSuccess,
-  listingUserFailure,
 } from "../redux/user/userSlice.js";
 import { useDispatch } from "react-redux";
 import { app } from "../firebase";
